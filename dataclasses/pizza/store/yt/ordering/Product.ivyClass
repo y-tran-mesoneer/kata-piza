@@ -1,0 +1,13 @@
+Product #class
+pizza.store.yt.ordering #namespace
+id String #field
+id PERSISTENT #fieldModifier
+name String #field
+name PERSISTENT #fieldModifier
+imageUrl String #field
+imageUrl PERSISTENT #fieldModifier
+price Number #field
+price PERSISTENT #fieldModifier
+type Number #field
+type '0: PIZZA / 1: DRINK' #fieldComment
+type PERSISTENT #fieldModifier

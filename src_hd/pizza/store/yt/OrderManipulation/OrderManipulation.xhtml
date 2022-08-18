@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+
+	<ui:composition template="/layouts/basic.xhtml">
+		<ui:define name="title">Honest Pizza!</ui:define>
+		<ui:define name="logout-component">
+			<span style="color:green;font-weight:bold">#{data.user.fullName}</span><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+			<h:link value="Logout" onclick="lo()" />
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+						<f:event type="preRenderView"
+			listener="#{logic.reload}" />
+				<p:remoteCommand name="lo" action="#{logic.logout}"/>
+				<div class="card" style="margin-top: 16px">
+					<p:dataTable rows="10" paginator="true" paginatorPosition="both"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     
+					 rowIndexVar="index" var="order" value="#{data.orders}">
+						<p:column headerText="No.">
+							<h:outputText value="#{index + 1}" />
+						</p:column>
+
+						<p:column headerText="Date" sortBy="#{order.createAt.time}">
+							<h:outputText value="#{order.createAt.time}">
+								<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Items" width="300">
+							<ul>
+								<ui:repeat value="#{order.items}" var="item">
+									<li><h:outputText value="#{item.productName}">
+										</h:outputText> <h:outputText value="&#160;" /> <h:outputText value="&#160;" />
+										<h:outputText value="&#160;" /> <h:outputText
+											value="x #{item.quantity}">
+										</h:outputText></li>
+								</ui:repeat>
+							</ul>
+						</p:column>
+
+						<p:column headerText="Name">
+							<h:outputText value="#{order.userName}" />
+						</p:column>
+
+						<p:column headerText="Phone number">
+							<h:outputText value="#{order.phoneNumber}" />
+						</p:column>
+						<p:column headerText="Price">
+							<h:outputText value="$#{order.price}" />
+						</p:column>
+						<p:column headerText="Actions">
+							<div align="center">
+								<h:link value="Confirm" onclick="confirm()" /><span> | </span> <h:link value="Cancel" onclick="cancel()" />
+								<p:remoteCommand name="confirm" action="#{logic.updateOrder(order.id, 1)}"/>
+								<p:remoteCommand name="cancel" action="#{logic.updateOrder(order.id, 99)}"/>
+							</div>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</h:form>
+
+
+		</ui:define>
+
+
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,12 @@
+UserOrderingData #class
+pizza.store.yt.UserOrdering #namespace
+pizzas List<pizza.store.yt.ordering.Product> #field
+pizzas PERSISTENT #fieldModifier
+drinks List<pizza.store.yt.ordering.Product> #field
+drinks PERSISTENT #fieldModifier
+order pizza.store.yt.ordering.Order #field
+order PERSISTENT #fieldModifier
+response javax.ws.rs.core.Response #field
+response PERSISTENT #fieldModifier
+validData Boolean #field
+validData PERSISTENT #fieldModifier

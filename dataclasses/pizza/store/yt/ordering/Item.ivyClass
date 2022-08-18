@@ -1,0 +1,7 @@
+Item #class
+pizza.store.yt.ordering #namespace
+productName String #field
+quantity Number #field
+unitPrice Number #field
+productId String #field
+productId PERSISTENT #fieldModifier

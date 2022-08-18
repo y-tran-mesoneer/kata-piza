@@ -1,0 +1,6 @@
+OrderManipulationData #class
+pizza.store.yt.OrderManipulation #namespace
+orders java.util.List<pizza.store.yt.ordering.Order> #field
+orders PERSISTENT #fieldModifier
+user ch.ivyteam.ivy.security.IUser #field
+user PERSISTENT #fieldModifier

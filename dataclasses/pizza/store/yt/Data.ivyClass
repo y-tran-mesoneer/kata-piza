@@ -1,0 +1,5 @@
+Data #class
+pizza.store.yt #namespace
+pizzas List<pizza.store.yt.ordering.Product> #field
+drinks List<pizza.store.yt.ordering.Product> #field
+orders List<pizza.store.yt.ordering.Order> #field

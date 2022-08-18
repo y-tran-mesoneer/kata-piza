@@ -1,0 +1,12 @@
+Order #class
+pizza.store.yt.ordering #namespace
+userName String #field
+phoneNumber String #field
+deliverTo String #field
+products java.util.HashMap #field
+items java.util.List<pizza.store.yt.ordering.Item> #field
+status Integer #field
+status '0/1/2/3/99 --- PENDING/CONFIRMED/DELIVERING/DONE/REJECT' #fieldComment
+id String #field
+createAt java.util.Calendar #field
+price Number #field
