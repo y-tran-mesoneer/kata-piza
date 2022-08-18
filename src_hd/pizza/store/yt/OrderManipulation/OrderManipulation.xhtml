@@ -11,20 +11,22 @@
 	<ui:composition template="/layouts/basic.xhtml">
 		<ui:define name="title">Honest Pizza!</ui:define>
 		<ui:define name="logout-component">
-			<span style="color:green;font-weight:bold">#{data.user.fullName}</span><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+			<span style="color: green; font-weight: bold">#{data.user.fullName}</span>
+			<h:outputText value="&#160;" />
+			<h:outputText value="&#160;" />
 			<h:link value="Logout" onclick="lo()" />
 		</ui:define>
 		<ui:define name="content">
-			<h:form>
-						<f:event type="preRenderView"
-			listener="#{logic.reload}" />
-				<p:remoteCommand name="lo" action="#{logic.logout}"/>
+			<h:form id="main-form">
+				<f:event type="preRenderView" listener="#{logic.reload}" />
+				<p:remoteCommand name="update" update=":main-form:table-orders"
+					action="#{logic.updateOrder}" />
+				<p:remoteCommand name="lo" action="#{logic.logout}" />
 				<div class="card" style="margin-top: 16px">
-					<p:dataTable rows="10" paginator="true" paginatorPosition="both"
-					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                     
-					 rowIndexVar="index" var="order" value="#{data.orders}">
+					<p:dataTable id="table-orders" rows="10" paginator="true" paginatorPosition="both"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+						rowIndexVar="index" var="order" value="#{data.orders}">
 						<p:column headerText="No.">
 							<h:outputText value="#{index + 1}" />
 						</p:column>
@@ -59,9 +61,20 @@
 						</p:column>
 						<p:column headerText="Actions">
 							<div align="center">
-								<h:link value="Confirm" onclick="confirm()" /><span> | </span> <h:link value="Cancel" onclick="cancel()" />
-								<p:remoteCommand name="confirm" action="#{logic.updateOrder(order.id, 1)}"/>
-								<p:remoteCommand name="cancel" action="#{logic.updateOrder(order.id, 99)}"/>
+								<h:panelGroup
+									rendered="#{data.user.getRoles()[1].getDisplayName().equals('Receptionist')}">
+									<p:commandLink actionListener="#{data.orders.remove(order)}" value="Confirm" onclick="update([{name: 'id', value: '#{order.id}'}, {name: 'status', value: 1}])" />
+									<span> | </span>
+									<p:commandLink actionListener="#{data.orders.remove(order)}" value="Cancel" onclick="update([{name: 'id', value: '#{order.id}'}, {name: 'status', value: 99}])" />
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{data.user.getRoles()[1].getDisplayName().equals('Chef')}">
+									<p:commandLink actionListener="#{data.orders.remove(order)}" value="Done" onclick="update([{name: 'id', value: '#{order.id}'}, {name: 'status', value: 2}])" />
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{data.user.getRoles()[1].getDisplayName().equals('Delivery')}">
+									<p:commandLink actionListener="#{data.orders.remove(order)}" value="Done" onclick="update([{name: 'id', value: '#{order.id}'}, {name: 'status', value: 3}])" />
+								</h:panelGroup>
 							</div>
 						</p:column>
 					</p:dataTable>

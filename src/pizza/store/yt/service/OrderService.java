@@ -13,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -20,10 +21,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.lang3.StringUtils;
 
 import pizza.store.yt.ordering.Order;
-import ch.ivyteam.ivy.environment.Ivy;
-import ch.ivyteam.ivy.security.IRole;
-import ch.ivyteam.ivy.security.ISecurityManager;
-import ch.ivyteam.ivy.security.ISession;
 
 @Singleton
 @Path("{applicationName}/orders")
@@ -49,29 +46,19 @@ public class OrderService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getOrders() {
-		IRole receptionistRole = Ivy.request().getApplication()
-				.getSecurityContext().findRole("Receptionist");
-		IRole chefRole = Ivy.request().getApplication().getSecurityContext()
-				.findRole("Chef");
-		IRole deliveryRole = Ivy.request().getApplication()
-				.getSecurityContext().findRole("Delivery");
-		ISecurityManager securityManager = ch.ivyteam.ivy.security.internal.SecurityManager.getSecurityManager();
-		ISession currentSession = securityManager.getCurrentSession();
-		boolean userHasRoleReceptionist = currentSession.hasRole(
-				receptionistRole, false);
-		boolean userHasRoleChef = currentSession.hasRole(chefRole, false);
-		boolean userHasRoleDelivery = currentSession
-				.hasRole(deliveryRole, false);
-		int status;
-
-		if (userHasRoleReceptionist) {
+	public Response getOrders(@QueryParam("role") String role) {
+		Integer status;
+		switch (role) {
+		case "Receptionist":
 			status = OrderStatus.PENDING.value();
-		} else if (userHasRoleChef) {
+			break;
+		case "Chef":
 			status = OrderStatus.CONFIRMED.value();
-		} else if (userHasRoleDelivery) {
+			break;
+		case "Delivery":
 			status = OrderStatus.DELIVERING.value();
-		} else {
+			break;
+		default: 
 			return Response.status(Status.UNAUTHORIZED).build();
 		}
 
@@ -112,19 +99,19 @@ public class OrderService {
 		return Response.status(Status.OK).entity(new OrderResponse(newOrder))
 				.build();
 	}
-	
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Order orderRequest) {
 
-		if (orderRequest == null
-				|| StringUtils.isEmpty(orderRequest.getId())) {
+		if (orderRequest == null || StringUtils.isEmpty(orderRequest.getId())) {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		String orderId = orderRequest.getId();
 		Integer status = orderRequest.getStatus();
-		Order order = orders.stream().filter(p -> orderId.equals(p.getId())).findFirst().orElse(null);
+		Order order = orders.stream().filter(p -> orderId.equals(p.getId()))
+				.findFirst().orElse(null);
 		if (order == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}

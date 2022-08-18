@@ -4,22 +4,9 @@
         <uuid>2e99e5b7-24aa-4a81-baa8-a63e590eec42</uuid>
         <name>productService</name>
         <configuration>
-            <uri>http://localhost:8081/ivy/api/designer/products</uri>
-            <property>
-                <name>username</name>
-                <value>staff1</value>
-                <password>false</password>
-            </property>
-            <property>
-                <name>password</name>
-                <value>\u0087\u00AF\u0070\u0062\u0041\u00A9\u0032\u0033\u0036\u008B\u00DE\u005F\u0049\u005E\u000E\u003B\u00DA\u0014\u0085\u00F3\u007C\u00CE\u0089\u00B9\u0076\u00F9\u0036\u00A3\u00B8\u0002\u001E\u00FD</value>
-                <password>true</password>
-            </property>
+            <uri>http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/products</uri>
             <feature>
                 <class>ch.ivyteam.ivy.rest.client.mapper.JsonFeature</class>
-            </feature>
-            <feature>
-                <class>ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature</class>
             </feature>
         </configuration>
     </restClient>
@@ -27,20 +14,7 @@
         <uuid>cd69c9a6-7114-4467-91b5-62ba4cba3e85</uuid>
         <name>orderService</name>
         <configuration>
-            <uri>http://localhost:8081/ivy/api/designer/orders</uri>
-            <property>
-                <name>username</name>
-                <value>staff1</value>
-                <password>false</password>
-            </property>
-            <property>
-                <name>password</name>
-                <value>\u0087\u00AF\u0070\u0062\u0041\u00A9\u0032\u0033\u0036\u008B\u00DE\u005F\u0049\u005E\u000E\u003B\u00DA\u0014\u0085\u00F3\u007C\u00CE\u0089\u00B9\u0076\u00F9\u0036\u00A3\u00B8\u0002\u001E\u00FD</value>
-                <password>true</password>
-            </property>
-            <feature>
-                <class>ch.ivyteam.ivy.rest.client.authentication.HttpBasicAuthenticationFeature</class>
-            </feature>
+            <uri>http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/orders</uri>
             <feature>
                 <class>ch.ivyteam.ivy.rest.client.mapper.JsonFeature</class>
             </feature>

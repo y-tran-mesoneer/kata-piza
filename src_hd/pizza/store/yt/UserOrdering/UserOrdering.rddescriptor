@@ -11,22 +11,6 @@
             <nullPermitted>false</nullPermitted>
         </inputParameter>
     </method>
-    <method>
-        <name>checkProductIdExisted</name>
-        <description></description>
-        <inputParameter>
-            <name>productId</name>
-            <description></description>
-            <parameterType>String</parameterType>
-            <nullPermitted>false</nullPermitted>
-        </inputParameter>
-        <outputParameter>
-            <name>result</name>
-            <description></description>
-            <parameterType>Boolean</parameterType>
-            <nullPermitted>false</nullPermitted>
-        </outputParameter>
-    </method>
     <startMethod>
         <name>start</name>
         <description>Default dialog start method.</description>

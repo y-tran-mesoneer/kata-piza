@@ -1,5 +1,5 @@
 [Ivy]
-[>Created: Thu Aug 18 10:51:28 ICT 2022]
+[>Created: Thu Aug 18 15:33:16 ICT 2022]
 182AA1CCA9CDF59C 3.18 #module
 >Proto >Proto Collection #zClass
 Ls0 LoginProcess Big #zClass
@@ -207,7 +207,9 @@ import ch.ivyteam.ivy.security.IUser;
 ISecurityManager securityManager = ch.ivyteam.ivy.security.internal.SecurityManager.getSecurityManager();
 ISession currentSession = securityManager.getCurrentSession();
 
-if (currentSession.getSessionUser() != null) {
+if (currentSession.getSessionUser() != null &&
+!currentSession.getSessionUser().getDisplayName().startsWith("Developer")
+) {
 	in.wasLogin = true;
 	}' #txt
 Ls0 f13 type pizza.store.yt.Login.LoginData #txt

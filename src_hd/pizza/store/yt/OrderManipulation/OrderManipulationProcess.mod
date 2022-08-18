@@ -1,5 +1,5 @@
 [Ivy]
-[>Created: Thu Aug 18 11:40:07 ICT 2022]
+[>Created: Thu Aug 18 15:24:46 ICT 2022]
 182AAABD5941C4B8 3.18 #module
 >Proto >Proto Collection #zClass
 Os0 OrderManipulationProcess Big #zClass
@@ -53,7 +53,7 @@ Os0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 Os0 f0 83 51 26 26 -12 15 #rect
 Os0 f0 @|RichDialogInitStartIcon #fIcon
 Os0 f1 type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
-Os0 f1 419 83 26 26 0 12 #rect
+Os0 f1 699 51 26 26 0 12 #rect
 Os0 f1 @|RichDialogProcessEndIcon #fIcon
 Os0 f3 guid 182AAABD5A030E2A #txt
 Os0 f3 type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
@@ -68,14 +68,14 @@ Os0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Os0 f3 83 147 26 26 -15 12 #rect
+Os0 f3 91 347 26 26 -15 12 #rect
 Os0 f3 @|RichDialogProcessStartIcon #fIcon
 Os0 f4 type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
 Os0 f4 guid 182AAABD5A07670D #txt
-Os0 f4 211 147 26 26 0 12 #rect
+Os0 f4 819 347 26 26 0 12 #rect
 Os0 f4 @|RichDialogEndIcon #fIcon
 Os0 f5 expr out #txt
-Os0 f5 109 160 211 160 #arcP
+Os0 f5 117 360 819 360 #arcP
 Os0 f10 actionDecl 'pizza.store.yt.OrderManipulation.OrderManipulationData out;
 ' #txt
 Os0 f10 actionCode 'import ch.ivyteam.ivy.security.ISession;
@@ -99,12 +99,12 @@ Os0 f10 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Os0 f10 227 43 128 44 -56 -8 #rect
+Os0 f10 387 43 128 44 -56 -8 #rect
 Os0 f10 @|StepIcon #fIcon
 Os0 f2 expr out #txt
-Os0 f2 108 64 227 65 #arcP
+Os0 f2 108 64 387 65 #arcP
 Os0 f6 expr out #txt
-Os0 f6 355 65 419 93 #arcP
+Os0 f6 515 65 699 64 #arcP
 Os0 f9 actionDecl 'pizza.store.yt.OrderManipulation.OrderManipulationData out;
 ' #txt
 Os0 f9 actionTable 'out=in;
@@ -148,12 +148,14 @@ Os0 f7 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Os0 f7 83 243 26 26 -17 15 #rect
+Os0 f7 83 259 26 26 -17 15 #rect
 Os0 f7 @|RichDialogMethodStartIcon #fIcon
 Os0 f8 expr out #txt
-Os0 f8 108 257 232 272 #arcP
+Os0 f8 109 272 232 272 #arcP
 Os0 f11 expr out #txt
-Os0 f11 288 250 230 171 #arcP
+Os0 f11 344 272 819 355 #arcP
+Os0 f11 1 608 272 #addKink
+Os0 f11 0 0.9308285443409205 0 0 #arcLabel
 Os0 f14 guid 182AF005040726A2 #txt
 Os0 f14 type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
 Os0 f14 method reload() #txt
@@ -172,18 +174,25 @@ Os0 f14 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Os0 f14 467 299 26 26 -17 15 #rect
+Os0 f14 91 115 26 26 -17 15 #rect
 Os0 f14 @|RichDialogMethodStartIcon #fIcon
 Os0 f15 expr out #txt
-Os0 f15 472 301 291 87 #arcP
+Os0 f15 117 128 387 87 #arcP
+Os0 f15 1 264 128 #addKink
+Os0 f15 0 0.9784813281464492 0 0 #arcLabel
 Os0 f12 guid 182AF3D2D84EAC7E #txt
 Os0 f12 type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
-Os0 f12 method updateOrder(String,java.lang.Integer) #txt
+Os0 f12 method updateOrder() #txt
 Os0 f12 disableUIEvents false #txt
 Os0 f12 inParameterDecl 'ch.ivyteam.ivy.richdialog.exec.RdMethodCallEvent methodEvent = event as ch.ivyteam.ivy.richdialog.exec.RdMethodCallEvent;
-<java.lang.String id,java.lang.Integer status> param = methodEvent.getInputArguments();
+<> param = methodEvent.getInputArguments();
 ' #txt
-Os0 f12 inActionCode pizza.store.yt.client.OrderClient.updateOrder(param.id,param.status); #txt
+Os0 f12 inActionCode 'import java.util.Map;
+import javax.faces.context.FacesContext;
+
+FacesContext context = FacesContext.getCurrentInstance();
+Map map = context.getExternalContext().getRequestParameterMap();
+pizza.store.yt.client.OrderClient.updateOrder(map.get("id").toString(),map.get("status").toNumber());' #txt
 Os0 f12 outParameterDecl '<> result;
 ' #txt
 Os0 f12 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -195,13 +204,12 @@ Os0 f12 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Os0 f12 99 339 26 26 -34 15 #rect
+Os0 f12 99 195 26 26 -34 15 #rect
 Os0 f12 @|RichDialogMethodStartIcon #fIcon
 Os0 f13 expr out #txt
-Os0 f13 112 339 291 87 #arcP
-Os0 f13 1 112 208 #addKink
-Os0 f13 2 291 208 #addKink
-Os0 f13 1 0.4720670391061452 0 0 #arcLabel
+Os0 f13 125 208 451 87 #arcP
+Os0 f13 1 451 208 #addKink
+Os0 f13 0 0.5052813644603943 0 0 #arcLabel
 >Proto Os0 .type pizza.store.yt.OrderManipulation.OrderManipulationData #txt
 >Proto Os0 .processKind HTML_DIALOG #txt
 >Proto Os0 -8 -8 16 16 16 26 #rect

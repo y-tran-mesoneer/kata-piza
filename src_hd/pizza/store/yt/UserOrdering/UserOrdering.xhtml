@@ -53,6 +53,7 @@
 				<p:commandButton value="Submit"
 					style="float:right;display:#{param.i == 2 ? 'inline-block' : 'none'};"
 					actionListener="#{logic.submit}" 
+					update=":order-form-id:items-table"
 					 >
 					 </p:commandButton>
 			</h:form>

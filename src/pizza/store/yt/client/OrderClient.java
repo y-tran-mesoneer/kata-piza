@@ -12,7 +12,9 @@ import ch.ivyteam.ivy.rest.client.GenericTypes;
 public class OrderClient {
 	public static List<Order> getOrders()
 	{
-		return Ivy.rest().client("orderService")
+		String roleName = Ivy.session().getSessionUser().getRoles().get(1).getDisplayName();
+		
+		return Ivy.rest().client("orderService").queryParam("role", roleName)
 				.request().get(GenericTypes.listOf(Order.class));
 	}
 	

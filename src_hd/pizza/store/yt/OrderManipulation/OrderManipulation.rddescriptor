@@ -12,18 +12,6 @@
     <method>
         <name>updateOrder</name>
         <description></description>
-        <inputParameter>
-            <name>id</name>
-            <description></description>
-            <parameterType>String</parameterType>
-            <nullPermitted>false</nullPermitted>
-        </inputParameter>
-        <inputParameter>
-            <name>status</name>
-            <description></description>
-            <parameterType>java.lang.Integer</parameterType>
-            <nullPermitted>false</nullPermitted>
-        </inputParameter>
     </method>
     <startMethod>
         <name>start</name>
